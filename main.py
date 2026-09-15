@@ -7,9 +7,15 @@ from pydantic import BaseModel
 from ai_engine import analyze_complaint_image
 from database import ComplaintDB, SessionLocal, init_db
 from auth import verify_password, get_password_hash, create_access_token
-
+from fastapi.responses import RedirectResponse
 app = FastAPI(title="AI Complaint Analyzer")
+# Mount the static folder so HTML/CSS files can be accessed via URL
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
+
+@app.get("/")
+def read_root():
+    return RedirectResponse(url="/static/login.html")
 
 @app.on_event("startup")
 def startup_event():
