@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Complaint Analyzer - Civic Portal</title>
+    <!-- Chart.js CDN for Data Visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; color: #333; }
+        .container { max-width: 1100px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        h1, h2 { color: #2c3e50; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        textarea, select, input[type="file"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { background-color: #3498db; color: white; border: none; padding: 10px 20px; font-size: 16px; border-radius: 4px; cursor: pointer; }
+        button:hover { background-color: #2980b9; }
+        .logout-btn { background-color: #e74c3c; padding: 8px 15px; font-size: 14px; float: right; }
+        .logout-btn:hover { background-color: #c0392b; }
+        hr { margin: 40px 0; border: 0; border-top: 1px solid #eee; }
+        #responseMessage { margin-top: 15px; font-weight: bold; color: green; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Logout Button Header -->
+    <div>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+        <h1>AI Complaint Analyzer & Civic Management</h1>
+    </div>
+    <p>Submit civic complaints (potholes, infrastructure damage, trash, etc.) with photo verification processed via Deep Learning.</p>
+
+    <!-- Citizen Upload Portal Form -->
+    <h2>Citizen Grievance Form</h2>
+    <form id="complaintForm">
+        <div class="form-group">
+            <label for="description">Issue Description:</label>
+            <textarea id="description" rows="3" required placeholder="Describe the road issue, pothole, or damage..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="category">Complaint Category:</label>
+            <select id="category" required>
+                <option value="Road_Issues_Pothole">Road Issues: Pothole</option>
+                <option value="Infrastructure_Damage_Concrete">Infrastructure Damage (Concrete)</option>
+                <option value="Domestic_trash">Domestic Trash</option>
+                <option value="Vandalism_Graffiti">Vandalism / Graffiti</option>
+                <option value="Parking_Issues_Illegal_Parking">Illegal Parking</option>
+                <option value="Road_Issues_Damaged_Sign">Damaged Road Sign</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="imageFile">Upload Photo (Proof of Damage):</label>
+            <input type="file" id="imageFile" accept="image/*" required>
+        </div>
+
+        <button type="submit">Submit Complaint</button>
+        <div id="responseMessage"></div>
+    </form>
+
+    <!-- ADMIN ANALYTICS SECTION (Hidden by default for citizens via style="display: none;") -->
+    <div id="adminSection" style="display: none;">
+        <hr>
+        <h2>Admin Analytics Dashboard</h2>
+        <p>Real-time distribution and trend analytics loaded from historical datasets and live deep-learning submissions.</p>
+
+        <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
+            <div style="flex: 1; min-width: 400px; background: #fafafa; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
+                <div style="position: relative; height: 350px; width: 100%;">
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+            <div style="flex: 1; min-width: 400px; background: #fafafa; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
+                <div style="position: relative; height: 350px; width: 100%;">
+                    <canvas id="trendChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
